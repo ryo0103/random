@@ -36,6 +36,10 @@ class Xorshift32:public Random{
     }
 
     public:
+    Xorshift32(){
+        MAX = 4294967295;
+    }
+
     // matrix corresponds to xorshift32
     // xorshift(x) == Ax
     F2Matrix matrix;

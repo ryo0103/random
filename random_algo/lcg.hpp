@@ -41,7 +41,7 @@ class LCG:public Random{
 
     public:
     LCG(){
-        
+      MAX = 2147483646;  
     }
     uint32_t random(uint32_t now){
         now = now % M;
