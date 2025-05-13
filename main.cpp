@@ -41,8 +41,12 @@ double montecarlo(ll seed,ll loop_num, Random* rand_){
 void write_to_file(string file_name, vector<double> results){
     int d = numeric_limits<double>::max_digits10;
     ofstream outputfile(file_name);
-    for(double i:results)
-        outputfile << setprecision(d) << to_string(i) << ",";
+    for(ll i=0;i<results.size();i++){
+        outputfile << setprecision(d) << to_string(results[i]) ;
+        if(i!=results.size()-1)
+            outputfile << ",";
+    }
+    outputfile << endl;
     outputfile.close();
 }
 
@@ -68,7 +72,7 @@ int main()
     ll repeat_num = 10000;
     ll loop_num_per_montecarlo = 100*1000 / 100;
     vector<double> res = multi_montecarlo(repeat_num,loop_num_per_montecarlo);
-    string output_file_name = "output.txt";
+    string output_file_name = "output/output.txt";
     write_to_file(output_file_name,res);
 
     end = chrono::system_clock::now();

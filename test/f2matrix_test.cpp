@@ -57,4 +57,8 @@ int main()
     
     for(ll i=0;i<1000;i++)
         assert(convert_F2_32_to_uint32_t(convert_uint32_t_to_F2_32(i)) == i);
+    F2Matrix T1 = Rk_matrix(5,32);
+    F2Matrix T2 = Lk_matrix(5,32);
+    F2Matrix M = T1 * T2;
+    cout << M << endl;
 }
