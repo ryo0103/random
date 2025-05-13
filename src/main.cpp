@@ -21,6 +21,7 @@ string trim(string s){
 
 int main(int argc,char *argv[])
 {
+    cout << std::thread::hardware_concurrency() << endl;
     assert(argc==2);
     vector<string> config = read_config(argv[1]);
     ll repeat_num = stol(config[0]);
@@ -29,7 +30,7 @@ int main(int argc,char *argv[])
     start = chrono::system_clock::now();
 
 
-    vector<double> res = multi_montecarlo(repeat_num,loop_num_per_montecarlo);
+    vector<double> res = multi_thread_montecarlo(repeat_num,loop_num_per_montecarlo,1);
     end = chrono::system_clock::now();
     double time = static_cast<double>(chrono::duration_cast<chrono::microseconds>(end-start).count()/1000.0);
     
