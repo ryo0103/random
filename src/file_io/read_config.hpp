@@ -11,6 +11,7 @@ using ll = long long;
 
 vector<string> read_config(string config_name){
     ifstream config_file(config_name);
+
     string line;
     getline(config_file, line);
     vector<string> res;

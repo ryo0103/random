@@ -1,0 +1,7 @@
+montecarlo:
+  montecarlo_num: 1000
+  loop_per_1montecarlo: 1000
+
+multithread:
+  thread_num: 256
+  does_use_same_seed: true

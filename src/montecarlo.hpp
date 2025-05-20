@@ -49,10 +49,11 @@ class Args{
     ll loop_num;
     ll seed;
     ll tid;
+    Random* rand;
 };
 
 void multi_montecarlo(Args& args){
-    Random* rand_ = new Xorshift32();
+    Random* rand_ = args.rand;
     vector<double> res;
     ll n = args.seed;
     for(int i=0;i<args.repeat_num;i++){
@@ -65,17 +66,29 @@ void multi_montecarlo(Args& args){
 
 }
 
-vector<double> multi_thread_montecarlo(ll repeat_num, ll loop_num, ll thread_num){
+vector<double> multi_thread_montecarlo(ll repeat_num, ll loop_num, ll thread_num,bool does_use_same_seed=false){
     results = vector<vector<double>>(thread_num);
     vector<Args> args(thread_num);
     std::random_device seed_gen;
+    vector<ll> seeds(thread_num);
     for(ll i=0;i<thread_num;i++){
-        args[i].repeat_num=repeat_num;
-        args[i].loop_num=loop_num;
-        args[i].seed=seed_gen();
-        args[i].tid=i;
+        if(does_use_same_seed){
+            if(i==0){
+                seeds[i] = seed_gen();
+            }else{
+                seeds[i] = seeds[i-1];
+            }
+        }else{
+            seeds[i]=seed_gen();
+        }
     }
-    
+    for(ll i=0;i<thread_num;i++){
+        args[i].repeat_num=repeat_num/thread_num;
+        args[i].loop_num=loop_num;
+        args[i].seed=seeds[i];
+        args[i].tid=i;
+        args[i].rand=new Xorshift32();
+    }
     vector<thread> threads;
     for(ll i=0;i<thread_num;i++){
         threads.emplace_back(multi_montecarlo,ref(args[i]));

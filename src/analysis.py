@@ -22,7 +22,7 @@ def cal_dis_from_pi(x):
     res = 0
     p = math.pi
     for i in x:
-        res += (i - p) * (i - p)
+        res += abs(i - p)
     return res
 
 results = []
